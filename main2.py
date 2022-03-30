@@ -1,20 +1,19 @@
 from fila_normal import FilaNormal
 from fila_prioritaria import FilaPrioritaria
 
-# fila = FilaNormal()
+fila = FilaNormal()
 fila_prioritaria = FilaPrioritaria()
 
-# fila.atualiza_fila()
-# fila.atualiza_fila()
-# fila.atualiza_fila()
-#
-# print(fila.chama_cliente(3))
-# print(fila.chama_cliente(3))
-# print(fila.chama_cliente(3))
+fila.atualiza_fila()
+fila_prioritaria.atualiza_fila()
+fila.atualiza_fila()
+fila.atualiza_fila()
+fila_prioritaria.atualiza_fila()
+fila_prioritaria.atualiza_fila()
 
-fila_prioritaria.atualiza_fila()
-fila_prioritaria.atualiza_fila()
-fila_prioritaria.atualiza_fila()
+print(fila.chama_cliente(3))
+print(fila.chama_cliente(3))
+print(fila.chama_cliente(3))
 
 print(fila_prioritaria.chama_cliente(10))
 print(fila_prioritaria.chama_cliente(5))
