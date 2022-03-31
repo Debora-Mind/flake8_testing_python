@@ -2,6 +2,8 @@ import abc
 from typing import List, Dict, Union
 
 from contantes import TAMANHO_MAXIMO_FILA, TAMANHO_MINIMO_FILA
+from estatistica_resumida import EstatisticaResumida
+from estatistica_detalhada import EstatisticaDetalhada
 
 
 class FilaBase(metaclass=abc.ABCMeta):
@@ -16,18 +18,9 @@ class FilaBase(metaclass=abc.ABCMeta):
         else:
             self.codigo += 1
 
-    def estatisticas(self, agencia: int, data: str, flag: str) -> dict:
-        estatisticas: Dict[str, Union[str, int, List[str]]] = {}
-        if flag == "detail":
-            estatisticas['agencia'] = agencia
-            estatisticas['data'] = data
-            estatisticas['clientes atendidos'] = self.clientes_atendidos
-            estatisticas['numero de clientes'] = len(self.clientes_atendidos)
-
-        else:
-            estatisticas[f"{agencia} - {data}"] = len(self.clientes_atendidos)
-
-        return estatisticas
+    def estatisticas(self, agencia: int, data: str, retorna_estatistica) -> dict:
+        estatistica = retorna_estatistica(agencia, data)
+        return estatistica.roda_estatistica(self.clientes_atendidos)
 
     @abc.abstractmethod
     def gera_senha(self) -> None:
