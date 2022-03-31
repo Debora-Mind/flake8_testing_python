@@ -5,6 +5,8 @@ from contantes import TAMANHO_MAXIMO_FILA, TAMANHO_MINIMO_FILA
 from estatistica_resumida import EstatisticaResumida
 from estatistica_detalhada import EstatisticaDetalhada
 
+Class = Union[EstatisticaResumida, EstatisticaDetalhada]
+
 
 class FilaBase(metaclass=abc.ABCMeta):
     codigo: int = 0
@@ -18,9 +20,8 @@ class FilaBase(metaclass=abc.ABCMeta):
         else:
             self.codigo += 1
 
-    def estatisticas(self, agencia: int, data: str, retorna_estatistica) -> dict:
-        estatistica = retorna_estatistica(agencia, data)
-        return estatistica.roda_estatistica(self.clientes_atendidos)
+    def estatisticas(self, retorna_estatistica: Class) -> Dict[str, Class]:
+        return retorna_estatistica.roda_estatistica(self.clientes_atendidos)
 
     @abc.abstractmethod
     def gera_senha(self) -> None:
