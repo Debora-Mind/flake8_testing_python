@@ -1,11 +1,13 @@
 import abc
+from typing import List, Dict, Union
 
 from contantes import TAMANHO_MAXIMO_FILA, TAMANHO_MINIMO_FILA
 
+
 class FilaBase(metaclass=abc.ABCMeta):
     codigo: int = 0
-    fila: list = []
-    clientes_atendidos: list = []
+    fila: List[str] = []
+    clientes_atendidos: List[str] = []
     senha_atual: str = ""
 
     def reseta_fila(self) -> None:
@@ -15,14 +17,15 @@ class FilaBase(metaclass=abc.ABCMeta):
             self.codigo += 1
 
     def estatisticas(self, agencia: int, data: str, flag: str) -> dict:
-        if flag != "detail":
-            estatisticas = {f"{agencia} - {data}": len(self.clientes_atendidos)}
+        estatisticas: Dict[str, Union[str, int, List[str]]] = {}
+        if flag == "detail":
+            estatisticas['agencia'] = agencia
+            estatisticas['data'] = data
+            estatisticas['clientes atendidos'] = self.clientes_atendidos
+            estatisticas['numero de clientes'] = len(self.clientes_atendidos)
 
         else:
-            estatisticas = {'agencia': agencia,
-                            'data': data,
-                            'clientes atendidos': self.clientes_atendidos,
-                            'numero de clientes': len(self.clientes_atendidos)}
+            estatisticas[f"{agencia} - {data}"] = len(self.clientes_atendidos)
 
         return estatisticas
 
